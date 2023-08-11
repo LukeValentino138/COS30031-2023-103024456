@@ -46,22 +46,22 @@ Player playerMovement(Player player)
 
     switch (dir) {
         case 'N':
-            if (player.y > 0) {
+            if (player.y > 0 && mapArray[player.y-1][player.x] != "#") {
                 player.y--;
             }
             break;
         case 'S':
-            if (player.y < arraySize - 1) {
+            if (player.y < arraySize - 1 && mapArray[player.y + 1][player.x] != "#") {
                 player.y++;
             }
             break;
         case 'W':
-            if (player.x > 0) {
+            if (player.x > 0 && mapArray[player.y][player.x - 1] != "#") {
                 player.x--;
             }
             break;
         case 'E':
-            if (player.x < arraySize - 1) {
+            if (player.x < arraySize - 1 && mapArray[player.y][player.x + 1] != "#") {
                 player.x++;
             }
             break;
@@ -73,6 +73,16 @@ Player playerMovement(Player player)
     return player;
 }
 
+void EndGameConditions(Player player){
+    if (mapArray[player.y][player.x] == "G"){
+        cout << "\nCongratulations! You  Win!"<<endl;
+        exit(0);
+    } else if (mapArray[player.y][player.x] == "D"){
+        cout <<"\nYou were killed by a cave troll! Game Over!" << endl;
+        exit(0);
+    }
+}
+
 int main()
 {
     Player player = {2, 7};
@@ -81,6 +91,7 @@ int main()
         outputMap(player);
         cout << endl;
         player = playerMovement(player);
+        EndGameConditions(player);
     }
 
     return 0;
