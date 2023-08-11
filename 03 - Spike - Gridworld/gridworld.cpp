@@ -1,18 +1,33 @@
 #include <iostream>
 
-std::string mapArray[3][3]=
+std::string mapArray[5][5]=
 {
-  {"D","", "G"},
-  {"","",""},
-  {"","S", ""}  
+  {"#","#","#","#","#"},
+  {"#","D"," ", "G","#"},
+  {"#"," "," "," ","#"},
+  {"#"," ","S", " ","#"},
+  {"#","#","#","#","#"}  
 };
+
+
+void outputMap()
+{
+for (int i = 0; i < 5; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            std::cout << mapArray[i][j];
+        }
+        std::cout << std::endl; // Move to next line after row is done
+    }
+}
 
 
 int main()
 {
-    std::cout << mapArray[2][1] << std::endl;
-    return 0;
-
+    outputMap();
+ 
+   return 0;
 }
 
 
