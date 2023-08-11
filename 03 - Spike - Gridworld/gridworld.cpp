@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 const int arraySize = 8;
@@ -35,54 +36,67 @@ void outputMap(Player player)
     }
 }
 
-
-Player playerMovement(Player player)
+char processInputs(Player player)
 {
     char dir;
+    vector<string> availableDir;
 
-    bool canMoveNorth = (player.y > 0 && mapArray[player.y-1][player.x] != "#");
-    bool canMoveSouth = (player.y < arraySize - 1 && mapArray[player.y + 1][player.x] != "#");
-    bool canMoveWest = (player.x > 0 && mapArray[player.y][player.x - 1] != "#");
-    bool canMoveEast = (player.x < arraySize - 1 && mapArray[player.y][player.x + 1] != "#");
+    if(player.y > 0 && mapArray[player.y-1][player.x] != "#"){
+        availableDir.push_back("N");
+    }
+    if (player.y < arraySize - 1 && mapArray[player.y + 1][player.x] != "#"){
+        availableDir.push_back("S");
+    }
+    if (player.x > 0 && mapArray[player.y][player.x - 1] != "#"){
+        availableDir.push_back("W");
+    }
+    if(player.x < arraySize - 1 && mapArray[player.y][player.x + 1] != "#"){
+        availableDir.push_back("E");
+    }
+    availableDir.push_back("Q");
+    cout << "Choose a direction to travel ( ";
+    for (size_t i = 0; i < availableDir.size(); ++i) {
+        cout << availableDir[i];
+        if (i < availableDir.size() - 1) {
+            cout << ", ";
+        }
+}
+cout << " ): ";
 
-    cout << "Choose a direction to travel: ";
-    if (canMoveNorth) cout << "N ";
-    if (canMoveSouth) cout << "S ";
-    if (canMoveWest) cout << "W ";
-    if (canMoveEast) cout << "E ";
-    cout << "or Quit (Q): ";
+    bool validDirectionChosen = false;
+    while (!validDirectionChosen) {
+        cin >> dir;
+        dir = toupper(dir);
+        
+        for (const string& direction : availableDir) {
+            if (direction[0] == dir) {
+                validDirectionChosen = true;
+                break;
+            }
+        }
+        
+        if (!validDirectionChosen) {
+            cout << "Invalid direction. Choose a valid direction: ";
+        }
+    }
 
-    cin >> dir;
-    dir = toupper(dir);
+    return dir;
+}
 
+Player playerMovement(Player player, char dir)
+{
     switch (dir) {
         case 'N':
-            if (canMoveNorth) {
-                player.y--;
-            } else {
-                cout << "Invalid direction." << endl;
-            }
+            player.y--;
             break;
         case 'S':
-            if (canMoveSouth) {
-                player.y++;
-            } else {
-                cout << "Invalid direction." << endl;
-            }
+            player.y++;
             break;
         case 'W':
-            if (canMoveWest) {
-                player.x--;
-            } else {
-                cout << "Invalid direction." << endl;
-            }
+            player.x--;
             break;
         case 'E':
-            if (canMoveEast) {
-                player.x++;
-            } else {
-                cout << "Invalid direction." << endl;
-            }
+            player.x++;
             break;
         case 'Q':
             exit(0);
@@ -91,8 +105,6 @@ Player playerMovement(Player player)
     }
     return player;
 }
-
-
 
 void EndGameConditions(Player player){
     if (mapArray[player.y][player.x] == "G"){
@@ -107,11 +119,13 @@ void EndGameConditions(Player player){
 int main()
 {
     Player player = {2, 7};
+    char dir;
 
     while (true) {
         outputMap(player);
         cout << endl;
-        player = playerMovement(player);
+        dir = processInputs(player);
+        player = playerMovement(player, dir);
         EndGameConditions(player);
     }
 
