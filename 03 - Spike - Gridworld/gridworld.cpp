@@ -40,29 +40,48 @@ Player playerMovement(Player player)
 {
     char dir;
 
-    cout << "Choose a direction to travel (N,E,S,W) or Quit (Q): ";
+    bool canMoveNorth = (player.y > 0 && mapArray[player.y-1][player.x] != "#");
+    bool canMoveSouth = (player.y < arraySize - 1 && mapArray[player.y + 1][player.x] != "#");
+    bool canMoveWest = (player.x > 0 && mapArray[player.y][player.x - 1] != "#");
+    bool canMoveEast = (player.x < arraySize - 1 && mapArray[player.y][player.x + 1] != "#");
+
+    cout << "Choose a direction to travel: ";
+    if (canMoveNorth) cout << "N ";
+    if (canMoveSouth) cout << "S ";
+    if (canMoveWest) cout << "W ";
+    if (canMoveEast) cout << "E ";
+    cout << "or Quit (Q): ";
+
     cin >> dir;
     dir = toupper(dir);
 
     switch (dir) {
         case 'N':
-            if (player.y > 0 && mapArray[player.y-1][player.x] != "#") {
+            if (canMoveNorth) {
                 player.y--;
+            } else {
+                cout << "Invalid direction." << endl;
             }
             break;
         case 'S':
-            if (player.y < arraySize - 1 && mapArray[player.y + 1][player.x] != "#") {
+            if (canMoveSouth) {
                 player.y++;
+            } else {
+                cout << "Invalid direction." << endl;
             }
             break;
         case 'W':
-            if (player.x > 0 && mapArray[player.y][player.x - 1] != "#") {
+            if (canMoveWest) {
                 player.x--;
+            } else {
+                cout << "Invalid direction." << endl;
             }
             break;
         case 'E':
-            if (player.x < arraySize - 1 && mapArray[player.y][player.x + 1] != "#") {
+            if (canMoveEast) {
                 player.x++;
+            } else {
+                cout << "Invalid direction." << endl;
             }
             break;
         case 'Q':
@@ -72,6 +91,8 @@ Player playerMovement(Player player)
     }
     return player;
 }
+
+
 
 void EndGameConditions(Player player){
     if (mapArray[player.y][player.x] == "G"){
