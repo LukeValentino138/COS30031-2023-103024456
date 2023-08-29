@@ -50,6 +50,8 @@ Updates
 
 *******************************************************************************/
 #include <iostream>
+#include <vector>
+
 
 using namespace std;
 
@@ -76,6 +78,8 @@ void showParticleArray(Particle *, int);
 // #TODO: Q.4 Does your IDE know if this method is used?
 // If yes - how does it indicate this? (Colour? Tip? Other?)
 void showParticleArray_2(Particle arr[], int size);
+
+void TestFunction(int);
 
 // Main loop. Stuff happens here ...
 int main()
@@ -104,7 +108,7 @@ int main()
         cout << "Q.7: b with initialised values 0,0,0 ? ... ";
         showParticle(b);
     }
-
+    
     // 2. Get a particle with the values we pass to the function
     //    (When you are up to this section, change false to true. Keeps things compact)
     if (false) {
@@ -145,11 +149,10 @@ int main()
 
         // Note that (*p1_ptr).age gets the p1.age value, so ...
         cout << "Q.11 and Q.12: Test results ..." << endl;
-        if ((*p1_ptr).age == p1.age) cout << " - TRUE!"; else cout << " - False";
-        cout << endl;
+        cout << ((*p1_ptr).age == p1.age ? " - TRUE!" : " - False") << endl;
         // Note that (*p1_ptr).age is the same as p1_ptr->age
-        if ((*p1_ptr).age == p1_ptr->age) cout << " - TRUE!"; else cout << " - False!";
-        cout << endl;
+        cout << ((*p1_ptr).age == p1_ptr->age ? " - TRUE!" : " - False!") << endl;
+
         // Extra: Does C++ have a ternary operator? If so, replace the two if lines above.
         // #TODO: Q.11 So what does -> mean (in words)?
         // #TODO: Q.12 Do we need to put ( ) around *p1_ptr?
@@ -188,7 +191,7 @@ int main()
         p_array1[2] = getParticleWith(7,8,9);
 
         // #TODO: Q.19 Uncomment the next code line - will it compile?
-        //p_array1[3] = getParticleWith(0,0,0);
+        p_array1[3] = getParticleWith(0,0,0);
         // - If it compiles, does it run without errors?
         // #TODO: Q.20 Does your IDE tell you of any issues? If so, how?
         // NOTE: Recommend you re-comment the line - it's not needed later
@@ -221,7 +224,7 @@ int main()
         // Tip: Note the output values shown. Consider if they make sense.
         // Extra: You might see some values that we set earlier. Does that make sense?
         cout << "Q.25: Array position overrun ... " << endl;
-        showParticleArray(p_array2, 3); // <-- change size from 3 to 10
+        showParticleArray(p_array2, 10); // <-- change size from 3 to 10
     }
 
     // 6. Struct pointer with new and delete for memory
@@ -280,10 +283,11 @@ int main()
 
 
     // 7. Array of pointers to structs
-    if (false) {
+    if (true) {
         cout << " << Section 7 >>" << endl;
-        int n = 5;
+        const int n = 5;
         Particle *ptr_array[n]; // contains pointers to nowhere so far!
+
         cout << "Array of pointers - warmup checks:" << endl;
         cout << "The (direct/root?) ptr_array value " << ptr_array << endl;
         cout << "Default ptr_array values " << endl;
@@ -330,7 +334,7 @@ int main()
         // Note: if we dynamically created the array (with new), we should clean that up too.
         // #TODO: Q.35 How do you create an array with new and set the size?
     }
-
+    
     return 0;
 }
 
@@ -380,14 +384,14 @@ void showParticleArray_2(Particle arr[], int size)
 
     // #TODO: Q.24 Uncomment the following. It gives different values to those we saw before
     //  So it won't work as a way to determine array size - but why?
-    /*
+    
      if (true) {
          cout << "Array as arr[] ..." << endl;
          cout << " - sizeof entire array? " << sizeof(arr) << endl;
          cout << " - sizeof array element? " << sizeof(arr) << endl;
          cout << " - array size n is: " << (sizeof(arr) / sizeof(arr[0])) << endl;
      }
-     */
+     
     // NOTE: The above might get warnings (good!). Not all compilers/IDEs though.
     // Extra: Make a note about what is giving you warnings if you know.
 
@@ -398,4 +402,5 @@ void showParticleArray_2(Particle arr[], int size)
     }
 
     // #TODO: return to main for Q.25 ...
+    
 }
