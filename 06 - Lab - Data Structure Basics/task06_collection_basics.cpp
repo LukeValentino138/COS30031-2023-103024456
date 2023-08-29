@@ -128,6 +128,8 @@ int main() {
     // #TODO: Q.12 Was the vector instance deleted? If so, how do you know this?
     // #TODO: Q.13 Your IDE might suggest to use emplace_back instead of push_back. What does this mean?
 
+    vector_demo();
+
     return 0;
 }
 
@@ -165,8 +167,12 @@ void array_demo_1() {
     // simple quick std::array example
     array<int, 3> a1 = {8, 77, -50}; // initializer list
     // #TODO: Q.1.1 What do the < and > mean or indicate?
+    // The < and > are used because array is a template class. < and > are used to denote template arguments.
     // #TODO: Q.1.2 Why don't we need to write std:array here? (Is this good?)
+    // We do not need to write std::array here because we have written "using namespace std;" at the top of the file.
+    // This is generally good for readability.
     // #TODO: Q.1.3 Explain what the int and 3 indicate in this case?
+    // int indicates the type of element the array will hold, and 3 indicates how many elements the array will hold.
 
     if (true) {
         cout << "a1 address: " << hex << &a1 << endl;
@@ -205,6 +211,7 @@ void array_demo_1() {
         }
         cout << endl;
         // #TODO: Q.1.4 In the code above, what is the type of itr2?
+        // the type of itr2 is set by auto. auto sets the type to std::array<int, 3>::iterator
 
         //
         cout << "a1 contents using auto & for-each iterator: " << endl;
@@ -212,8 +219,9 @@ void array_demo_1() {
             cout << v << " ";
         cout << endl;
         // #TODO: Q.1.5 In the code above, what is the type of v?
+        // v is of type int as it references the elements of a1.
         // #TODO: Q.1.6 In the code above, what does the & mean in (auto &v : a1)
-
+        // It means reference. It means that the loop can directly change the elements in a1 instead of changing copies.
         // pass to a function (by value, using const to ensure it is not copied)
         showIntArray(a1);
     }
@@ -221,6 +229,7 @@ void array_demo_1() {
     // access of array by [index] is not range protected (BAD)
     cout << "What is at [3]? (out of bounds) " << a1[3] << endl;
     // #TODO: Q.1.7 Try this. Why does a1[3] work but at(3) does not?
+    // a1[3] work and at(3) because at() does bounds checking whilst [] does not. 
     if (false)
         cout << "What is at(3)? (out of range exception) " << a1.at(3) << endl;
 
@@ -234,6 +243,7 @@ void array_demo_1() {
 
     // iterator for loop
     // #TODO: Q.1.8 auto is awesome. What is the actual type of v that it works out for us?
+    // the type of v is <std::array<int, 3>::iterator>
     cout << "Using for with iterator ... " << endl;
     for (auto v = a1.begin(); v != a1.end(); v++)
         cout << " " << *v;
@@ -241,6 +251,7 @@ void array_demo_1() {
 
     // iterator for-each loop
     // #TODO: Q.1.9 auto is still awesome. What is the actual type of v here?
+    // the type of v here is int.
     cout << "Using for-each (ranged) iterator ... " << endl;
     for (auto &v : a1)
         cout << " " << v;
@@ -251,6 +262,9 @@ void array_demo_1() {
     cout << "Reverse Sort() on a1, now ..." << endl;
     showIntArray(a1);
     // #TODO: Q.1.10 How would you do a forward (not reverse) sort?
+    // A forware (not reverse) sort would look like this:
+    // sort(a1.begin(), a1.end()); 
+
 
     // multidimensional array (note the dimension order)
     array<array<int, 2>, 4> a_2d = {{{1, 2}, {3, 4}, {5, 6}, {7, 8}}};
@@ -421,6 +435,8 @@ void vector_demo() {
         for (auto &p: v1)
             p.show();
     }
+
+
 
 }
 
