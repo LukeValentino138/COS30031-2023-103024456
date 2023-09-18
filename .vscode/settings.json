@@ -47,6 +47,7 @@
         "vector": "cpp",
         "array": "cpp",
         "numeric": "cpp",
-        "format": "cpp"
+        "format": "cpp",
+        "algorithm": "cpp"
     }
 }
