@@ -101,12 +101,35 @@ void linear_rampup_test()
     cout << "done." << endl;
 }
 
+void exponential_rampdown()
+{
+cout << "Exponential Ramp-down Test" << endl;
+    int total;
+    //ull (suffix) == "unsigned long long" in c
+    for (auto size = 100000000ull; size >= 1ull ; size /= 100) 
+    {
+        //start time
+        auto start = steady_clock::now();
+        //perform repeatable action
+        vector<int> v(size, 42);
+        total = accumulate(v.begin(), v.end(), 0u); 
+        //get end time
+        auto end = steady_clock::now();
+        //calculate time
+        duration<double> diff = end - start;
+        auto _dur = duration_cast<nanoseconds>( end - start ).count();
+        cout << " - size: " << size << ", time: " << _dur << " ns";
+        cout << ", time/int: " << _dur / size << "ns/int" << endl; 
+    }  
+    cout << "done." << endl;
+}
 
 int main()
 {
     single_func(100000);
     multiple_func(100000, 10);
     exponential_rampup_test();
+    exponential_rampdown();
     linear_rampup_test();
     
 }
