@@ -38,6 +38,27 @@ class GameManager {
 };
 
 
+class About : public State {
+    public:
+    void update() override {
+        string command;
+        cin >> command;
+        if (command == "MainMenu"){
+            _manager->pop_state();
+        }
+    }
+    void render() override {
+        cout<<"Zorkish :: About"<<endl;
+        cout<<"--------------------------------------------------------"<<endl;
+        cout<<"Written By: Luke Valentino" << endl;
+        cout<<"Student Number: 103024456" << endl;
+        cout<<"Press Enter to return to the Main Menu"<<endl;
+    }
+
+    explicit About(GameManager* manager){
+        _manager=manager;
+    }
+};
 
 class Help : public State {
     public:
@@ -69,6 +90,9 @@ class MainMenu : public State {
         cin >> command;
         if (command == "3"){
             _manager->push_state(new Help(_manager));
+        }
+        if (command == "4"){
+            _manager->push_state(new About(_manager));
         }
         if (command == "5"){
             _manager->pop_state();
