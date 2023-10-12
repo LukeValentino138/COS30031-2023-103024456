@@ -1,7 +1,10 @@
 #include <vector>
 #include <map>
+#include <iostream>
+#include <fstream>
 #include <string>
 #include <cstdio>
+#include <json.hpp>
 
 using namespace std;
 
@@ -50,4 +53,40 @@ public:
 			n.second->print();
 		}
 	}
+
+	void load_map(const string& filename) {
+		ifstream file(filename);
+
+		if (!file.is_open()) {
+			cerr << "Error, cannot open file: " << filename << endl;
+			return;
+		}
+
+		nlohmann::json jsonObject;
+		file >> jsonObject;
+
+		for (const auto& location : jsonObject["locations"]) {
+			add_vertex(location["name"], location["description"]);
+		}
+
+		for (const auto& connection : jsonObject["connections"]) {
+			add_edge(connection["from"], connection["to"], connection["direction"]);
+		}
+	}
 };
+
+int main(int argc, char* argv[]) {
+	if (argc < 2) {
+		cerr << "Please provide the game world filename as a command-line argument." << endl;
+		return 1;
+	}
+
+	string filepath = argv[1];
+
+	Map_Graph graph;
+
+	graph.load_map(filepath); 
+
+	graph.print();
+
+}
