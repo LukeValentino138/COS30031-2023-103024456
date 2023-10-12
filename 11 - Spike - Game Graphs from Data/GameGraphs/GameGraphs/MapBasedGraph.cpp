@@ -75,6 +75,49 @@ public:
 	}
 };
 
+class Gameplay {
+public:
+	string currentLocation = "Bus Depot";
+	string command;
+
+	void start_game(Map_Graph& graph) {
+		while (true) {
+			cout << "You are at: " << currentLocation << endl;
+			cout << "Available directions: ";
+			for (const auto& dir : graph.vertices[currentLocation]->adj) {
+				cout << dir.first << " ";
+			}
+			cout << endl;
+
+			cout << "Enter command (go [direction] or quit): ";
+			cin >> command;
+
+			if (command == "quit") {
+				break;
+			}
+			else if (command == "go") {
+				string direction;
+				cin >> direction;
+
+				bool found = false;
+				for (const auto& dir : graph.vertices[currentLocation]->adj) {
+					if (dir.first == direction) {
+						currentLocation = dir.second->name;
+						found = true;
+						break;
+					}
+				}
+				if (!found) {
+					cout << "Invalid direction!" << endl;
+				}
+			}
+			else {
+				cout << "Invalid command!" << endl;
+			}
+		}
+	}
+};
+
 int main(int argc, char* argv[]) {
 	if (argc < 2) {
 		cerr << "Please provide the game world filename as a command-line argument." << endl;
@@ -89,4 +132,7 @@ int main(int argc, char* argv[]) {
 
 	graph.print();
 
+	Gameplay gm;
+
+	gm.start_game(graph);
 }
