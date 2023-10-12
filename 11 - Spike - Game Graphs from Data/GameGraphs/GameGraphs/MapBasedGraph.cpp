@@ -6,19 +6,21 @@
 using namespace std;
 
 struct Vertex {
-	typedef pair<int, Vertex*> ve;
+	typedef pair<string, Vertex*> ve;
 	vector<ve> adj;
+
 	string name;
-	Vertex(string s) : name(s) {}
+	string description;
+	Vertex(string s, string desc) : name(s), description(desc) {}
+
 	void print() {
 		printf("Vertex [%s]: ", name.c_str());
-		for (auto e : adj)
-			printf(" -> [%s] (wt=%d), ",
-				e.second->name.c_str(),
-				e.first);
+		for (auto v : adj)
+			printf(" %s -> [%s], ", v.first.c_str(), v.second->name.c_str());
 		printf("\n");
 	}
 };
+
 
 class Map_Graph {
 public:
