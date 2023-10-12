@@ -26,22 +26,25 @@ class Map_Graph {
 public:
 	typedef map<string, Vertex*> vmap;
 	vmap vertices;
-	void add_vertex(const string& name) {
+
+	void add_vertex(const string& name, const string& description) {
 		vmap::iterator itr = vertices.find(name);
 		if (itr == vertices.end()) {
 			Vertex* v;
-			v = new Vertex(name);
+			v = new Vertex(name, description);
 			vertices[name] = v;
 			return;
 		}
 		printf("Nope. Vertex [%s] already exist!\n", name.c_str());
 	}
-	void add_edge(const string& from, const string& to, double cost) {
-		Vertex *f = (vertices.find(from)->second);
-		Vertex *t = (vertices.find(to)->second);
-		pair<int, Vertex*> edge = make_pair(cost, t);
+
+	void add_edge(const string& from, const string& to, const string& direction) {
+		Vertex* f = (vertices.find(from)->second);
+		Vertex* t = (vertices.find(to)->second);
+		pair<string, Vertex*> edge = make_pair(direction, t);
 		f->adj.push_back(edge);
 	}
+
 	void print() {
 		for (auto n : vertices) {
 			n.second->print();
