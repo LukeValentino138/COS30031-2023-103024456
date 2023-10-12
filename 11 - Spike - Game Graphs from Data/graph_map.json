@@ -1,0 +1,26 @@
+{
+  "locations": [
+    {"name": "Bus Depot", "description": "An abandoned bus depot"},
+    {"name": "Diner", "description": "An overrun diner situated next to a garage"},
+    {"name": "Abandoned Cabin", "description": "An abandoned cabin with a secret"},
+    {"name": "Farm", "description": "An old homestead"},
+    {"name": "Power Station", "description": "The source"},
+    {"name": "Town", "description": "A once vibrant town, now forgotten."}
+  ],
+  "connections": [
+    {"from": "Bus Depot", "to": "Diner", "direction": "N"},
+    {"from": "Bus Depot", "to": "Town", "direction": "W"},
+    {"from": "Diner", "to": "Town", "direction": "SW"},
+    {"from": "Diner", "to": "Farm","direction": "W"},
+    {"from": "Diner", "to": "Bus Depot", "direction": "S"},
+    {"from": "Farm", "to" : "Diner", "direction": "E"},
+    {"from": "Farm", "to": "Abandoned Cabin", "direction": "S"},
+    {"from": "Abandoned Cabin", "to": "Power Station", "direction": "S"},
+    {"from": "Abandoned Cabin", "to": "Farm", "direction": "N"},
+    {"from": "Power Station", "to": "Abandoned Cabin", "direction":"N"},
+    {"from": "Power Station","to": "Town", "direction": "NE"},
+    {"from": "Town", "to": "Power Station", "direction": "SW"},
+    {"from": "Town", "to": "Bus Depot" ,"direction": "E"},
+    {"from": "Town", "to": "Diner","direction": "NE"}
+  ]
+}
