@@ -14,6 +14,9 @@ int main(int argc, char* argv[]) {
     GameManager manager(filepath);
     Map_Graph graph;
 
+    graph.load_map(filepath);
+    graph.print();
+
     // game loop
     while (manager.running()) {
         manager.current()->render();

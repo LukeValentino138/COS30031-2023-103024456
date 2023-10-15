@@ -12,4 +12,6 @@ public:
     void add_edge(const std::string& from, const std::string& to, const std::string& direction);
     void print();
     void load_map(const std::string& filename);
+    void add_item_to_location(const std::string& location_name, const Item& item);
+    void remove_item_from_location(const std::string& location_name, const std::string& item_name);
 };
