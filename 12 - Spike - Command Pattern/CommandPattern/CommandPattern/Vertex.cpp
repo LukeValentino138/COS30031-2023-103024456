@@ -1,7 +1,11 @@
 #include "Vertex.h"
-#include <cstdio>
 
 Vertex::Vertex(std::string s, std::string desc) : name(s), description(desc) {}
+
+std::string Vertex::getName()
+{
+    return name;
+}
 
 void Vertex::print() {
     printf("Location [%s]:\n", name.c_str());
@@ -18,4 +22,22 @@ void Vertex::print() {
     for (auto v : adj)
         printf(" %s -> [%s], ", v.first.c_str(), v.second->name.c_str());
     printf("\n-----------------------------\n");
+}
+
+bool Vertex::hasItem(const std::string& itemName) const {
+    for (const auto& item : items) {
+        if (item.name == itemName) {
+            return true;
+        }
+    }
+    return false;
+}
+
+Item* Vertex::getItemByName(const std::string& itemName) {
+    for (auto& item : items) {
+        if (item.name == itemName) {
+            return &item;
+        }
+    }
+    return nullptr;
 }

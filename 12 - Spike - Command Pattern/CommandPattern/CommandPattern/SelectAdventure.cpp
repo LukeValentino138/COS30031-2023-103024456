@@ -1,5 +1,5 @@
 #include "SelectAdventure.h"
-#include "Map_Graph.h"
+
 
 StateType SelectAdventure::getStateType() const {
     return StateType::SelectAdventure;
@@ -7,15 +7,31 @@ StateType SelectAdventure::getStateType() const {
 
 void SelectAdventure::update() {
     std::string command;
-    std::cin >> command;
-    if (command == "1") {
-        std::string mapFilePath = _manager->getMapFilePath();
-        _manager->push_state(new Gameplay(_manager, mapFilePath));
+    std::getline(std::cin, command);  
+
+    if (!_manager) {
+        std::cerr << "Error: GameManager instance (_manager) is nullptr!" << std::endl;
+        return;
     }
-    if (command == "MainMenu") {
+
+    if (command == "1") {
+        std::string mapPath = _manager->getMapFilePath();
+        if (!mapPath.empty()) {
+            _manager->world.load_map(mapPath);
+            _manager->push_state(new Gameplay(_manager));
+        }
+        else {
+            std::cerr << "Error: Map file path is empty!" << std::endl;
+        }
+    }
+    else if (command == "MainMenu") {
         _manager->queuePop(1);
     }
+    else {
+        std::cerr << "Invalid command: " << command << std::endl;
+    }
 }
+
 
 void SelectAdventure::render() {
     std::cout << "Zorkish :: Select Adventure" << std::endl;

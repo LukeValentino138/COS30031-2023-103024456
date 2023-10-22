@@ -2,6 +2,7 @@
 #include "State.h"
 #include "GameManager.h"
 #include "Gameplay.h"
+#include "Map_Graph.h"
 #include <iostream>
 
 class SelectAdventure : public State {

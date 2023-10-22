@@ -5,6 +5,10 @@ std::string GameManager::getMapFilePath() const {
     return mapFilePath;
 }
 
+void GameManager::loadMap(const std::string& filepath) {
+    world.load_map(filepath);
+}
+
 bool GameManager::running() const {
     return !_states.empty();
 }
@@ -27,7 +31,7 @@ void GameManager::executePops() {
             pop_state();
         }
     }
-    _numPopsRequired = 0;  // Reset counter
+    _numPopsRequired = 0;  
 }
 
 void GameManager::push_state(State* state) {
@@ -48,6 +52,5 @@ GameManager::~GameManager() {
 }
 
 GameManager::GameManager(const std::string& filepath) : mapFilePath(filepath) {
-    //add a first state to be ready
     push_state(new Welcome(this));
 }

@@ -2,6 +2,7 @@
 #include <map>
 #include <string>
 #include "Vertex.h"
+#include "Player.h"
 
 class Map_Graph {
 public:
@@ -14,4 +15,5 @@ public:
     void load_map(const std::string& filename);
     void add_item_to_location(const std::string& location_name, const Item& item);
     void remove_item_from_location(const std::string& location_name, const std::string& item_name);
+    Vertex* movePlayer(Player* player, const std::string& direction);
 };

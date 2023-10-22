@@ -71,3 +71,14 @@ void Map_Graph::remove_item_from_location(const std::string& location_name, cons
         std::cerr << "Location not found: " << location_name << std::endl;
     }
 }
+
+Vertex* Map_Graph::movePlayer(Player* player, const std::string& direction) {
+    Vertex* currentLocation = player->getCurrentLocation();
+
+    for (const auto& dir : currentLocation->adj) {
+        if (dir.first == direction) {
+            return dir.second;
+        }
+    }
+    return nullptr;
+}

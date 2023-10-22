@@ -4,14 +4,15 @@
 #include "HighScore.h"
 #include <iostream>
 #include "Map_Graph.h"
+#include "CommandManager.h"  
 
 class Gameplay : public State {
 private:
-    std::string currentLocation = "Bus Depot";
-    Map_Graph graph;
+    CommandManager cmdManager;  
+    GameManager* _manager;      
 
 public:
-    Gameplay(GameManager* manager, const std::string& mapFilePath);
+    Gameplay(GameManager* manager);
     StateType getStateType() const override;
     void update() override;
     void render() override;

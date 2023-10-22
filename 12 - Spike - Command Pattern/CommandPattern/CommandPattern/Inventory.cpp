@@ -1,6 +1,11 @@
 #include "Inventory.h"
 #include <iostream>
 
+const std::map<std::string, int>& Inventory::getItems() const
+{
+    return items;
+}
+
 void Inventory::addItem(const std::string& itemName, int quantity) {
     items[itemName] += quantity;
 }
@@ -21,4 +26,9 @@ void Inventory::printInventory() const {
     for (const auto& pair : items) {
         std::cout << pair.first << ": " << pair.second << std::endl;
     }
+}
+
+bool Inventory::hasItem(const std::string& ItemName) const
+{
+    return items.find(ItemName) != items.end();
 }
