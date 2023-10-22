@@ -38,7 +38,7 @@ public:
 		std::fstream file(filename, std::ios::in | std::ios::binary);
 
 		if (!file) {
-			std::cerr << "Error, cannot open file << filename << std::endl;
+			std::cerr << "Error, cannot open file" << filename << std::endl;
 			return;
 		}
 
@@ -55,10 +55,3 @@ public:
 	}
 
 };
-
-int main() {
-	Basic basic(1, 'a', 2.0f);
-	basic.readFile();
-
-	return 0;
-}

@@ -1,5 +1,27 @@
-
 *.pdb
 *.obj
 *.ilk
 .vscode/settings.json
+x64/
+*.vcxproj.user
+*.vcxproj.filters
+*.vcxproj
+*.aps
+*.ipch
+*.vsidx
+*.pdb
+*.obj
+*.ilk
+*.suo
+*.lock
+*.db
+*.db-shm
+*.db-wal
+*.opendb
+*.vsidx
+*.sqlite
+*.config
+11 - Spike - Game Graphs from Data/GameGraphs/.vs/GameGraphs/FileContentIndex/1b0a7a27-83ff-44b2-a4c2-716d2132b510.vsidx
+11 - Spike - Game Graphs from Data/GameGraphs/.vs/GameGraphs/FileContentIndex/3bd1bcba-27a2-403e-8c5b-5e426d82ec54.vsidx
+11 - Spike - Game Graphs from Data/GameGraphs/.vs/GameGraphs/FileContentIndex/a9465843-318d-4399-8e2d-aaeb32e5cae7.vsidx
+10 - Lab - File Input Output/Lab-FIleInputOutput/.vs/Lab-FIleInputOutput/FileContentIndex/0288662e-661c-43b5-a721-35c3aa9d3b8e.vsidx

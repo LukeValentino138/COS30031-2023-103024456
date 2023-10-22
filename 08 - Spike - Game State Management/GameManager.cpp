@@ -54,7 +54,7 @@ public:
                 pop_state();
             }
         }
-        _numPopsRequired = 0;  // Reset the counter
+        _numPopsRequired = 0;  // Reset counter
     }
 
 

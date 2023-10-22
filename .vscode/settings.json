@@ -48,6 +48,7 @@
         "array": "cpp",
         "numeric": "cpp",
         "format": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "stack": "cpp"
     }
 }
