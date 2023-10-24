@@ -12,10 +12,6 @@ int main(int argc, char* argv[]) {
     std::string filepath = argv[1];
 
     GameManager manager(filepath);
-    Map_Graph graph;
-
-    graph.load_map(filepath);
-    graph.print();
 
     // game loop
     while (manager.running()) {
