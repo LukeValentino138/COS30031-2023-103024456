@@ -6,7 +6,7 @@
 class Inventory {
 private:
     std::vector<Entity*> items; // Contains all the items in the inventory
-    int maxItems; // Maximum number of items the inventory can hold (optional)
+    int maxItems; // Maximum numb of items
 
 public:
     // Constructor

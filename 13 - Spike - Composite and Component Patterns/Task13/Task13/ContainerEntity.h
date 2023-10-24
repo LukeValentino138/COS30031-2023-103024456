@@ -16,4 +16,5 @@ public:
     const std::vector<Entity*>& getChildren() const;
     void addChild(Entity* entity) override;
     void removeChild(Entity* entity) override;
+    ~ContainerEntity();
 };

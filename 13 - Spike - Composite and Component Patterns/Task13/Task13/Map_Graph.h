@@ -3,8 +3,7 @@
 #include <string>
 #include "Vertex.h"
 #include "Player.h"
-#include "Entity.h" // Including Entity header
-
+#include "Entity.h" 
 class Map_Graph {
 public:
     typedef std::map<std::string, Vertex*> vmap;
@@ -15,9 +14,10 @@ public:
     void print();
     void load_map(const std::string& filename);
 
-    // Updated function names and parameter types
     void add_entity_to_location(const std::string& location_name, Entity* entity);
     void remove_entity_from_location(const std::string& location_name, const std::string& entity_name);
 
     Vertex* movePlayer(Player* player, const std::string& direction);
+
+    ~Map_Graph();
 };

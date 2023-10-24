@@ -14,9 +14,11 @@ struct Vertex {
 	std::string description;
 	std::vector<Entity*> entities;  // Renamed from items to entities
 
-	Entity* getEntityByName(const std::string& entityName); // Renamed from getItemByName
-	bool hasEntity(const std::string& entityName) const;    // Renamed from hasItem
+	Entity* getEntityByName(const std::string& entityName); 
+	bool hasEntity(const std::string& entityName) const;    
 	Vertex(std::string s, std::string desc);
 	std::string getName();
 	void print();
+
+	~Vertex();
 };

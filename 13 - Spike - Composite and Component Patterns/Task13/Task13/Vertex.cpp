@@ -52,3 +52,11 @@ void Vertex::print() {
     }
 }
 
+Vertex::~Vertex() {
+    for (Entity* entity : entities) {
+        delete entity;
+    }
+    entities.clear();
+}
+
+

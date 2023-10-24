@@ -29,3 +29,10 @@ void ContainerEntity::addChild(Entity* entity) {
 void ContainerEntity::removeChild(Entity* entity) {
     children.erase(std::remove(children.begin(), children.end(), entity), children.end());
 }
+
+ContainerEntity::~ContainerEntity() {
+    for (Entity* child : children) {
+        delete child;
+    }
+    children.clear();
+}

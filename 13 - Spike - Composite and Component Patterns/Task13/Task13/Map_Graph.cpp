@@ -100,3 +100,10 @@ Vertex* Map_Graph::movePlayer(Player* player, const std::string& direction) {
     }
     return nullptr;
 }
+
+Map_Graph::~Map_Graph() {
+    for (auto& pair : vertices) {
+        delete pair.second;  // delete the Vertex pointer
+    }
+    vertices.clear();
+}
