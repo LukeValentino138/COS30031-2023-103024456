@@ -1,27 +1,27 @@
 #include "Inventory.h"
+#include <iostream>
 
-Inventory::Inventory(int maxItems) : maxItems(maxItems) {}
+// Constructor
+Inventory::Inventory(int maxItems)
+    : itemContainer("Inventory", "Player's Inventory"),
+    maxItems(maxItems) {}
 
 bool Inventory::addItem(Entity* item) {
-    if (items.size() < maxItems) {
-        items.push_back(item);
+    if (!isFull()) {
+        itemContainer.addChild(item);
         return true;
     }
     return false;
 }
 
 bool Inventory::removeItem(Entity* item) {
-    auto it = std::find(items.begin(), items.end(), item);
-    if (it != items.end()) {
-        items.erase(it);
-        return true;
-    }
-    return false;
+    itemContainer.removeChild(item);
+    return true; 
 }
 
 bool Inventory::hasItem(const std::string& itemName) const {
-    for (const auto& item : items) {
-        if (item->getName() == itemName) {
+    for (const auto& child : itemContainer.getChildren()) {
+        if (child->getName() == itemName) {
             return true;
         }
     }
@@ -29,22 +29,36 @@ bool Inventory::hasItem(const std::string& itemName) const {
 }
 
 Entity* Inventory::getItemByName(const std::string& itemName) const {
-    for (const auto& item : items) {
-        if (item->getName() == itemName) {
-            return item;
+    for (const auto& child : itemContainer.getChildren()) {
+        if (child->getName() == itemName) {
+            return child;
         }
     }
     return nullptr;
 }
 
 const std::vector<Entity*>& Inventory::getAllItems() const {
-    return items;
+    return itemContainer.getChildren();
 }
 
 bool Inventory::isFull() const {
-    return items.size() >= maxItems;
+    return itemContainer.getChildren().size() >= maxItems;
 }
 
 void Inventory::clear() {
-    items.clear();
+    for (const auto& child : itemContainer.getChildren()) {
+        itemContainer.removeChild(child);
+    }
+}
+
+void Inventory::print() const {
+    if (itemContainer.getChildren().empty()) {
+        std::cout << "Inventory is empty." << std::endl;
+        return;
+    }
+
+    std::cout << "Inventory contents:" << std::endl;
+    for (const auto& item : itemContainer.getChildren()) {
+        std::cout << "- " << item->getName() << std::endl;
+    }
 }

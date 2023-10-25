@@ -1,12 +1,12 @@
 #pragma once
-#include <vector>
-#include <algorithm>
+#include <string>
 #include "Entity.h"
+#include "ContainerEntity.h"
 
 class Inventory {
 private:
-    std::vector<Entity*> items; // Contains all the items in the inventory
-    int maxItems; // Maximum numb of items
+    ContainerEntity itemContainer; 
+    int maxItems;
 
 public:
     // Constructor
@@ -32,4 +32,6 @@ public:
 
     // Clear the inventory
     void clear();
+
+    void print() const;
 };

@@ -1,28 +1,38 @@
 #pragma once
 
+#include "Entity.h"
 #include "Vertex.h"
 #include "Inventory.h"
+#include "AttributeComponent.h"
 
-class Player {
+class Player : public Entity {
 private:
     Vertex* currentLocation;
-    Inventory inventory;  
+    Inventory inventory;
 
 public:
     Player() : currentLocation(nullptr) {}
 
-    // Gets the current location of the player.
+    
+    std::string getName() const override {
+        return "Player";
+    }
+
+    std::string getDescription() const override {
+        return "The main character of the game.";
+    }
+
     Vertex* getCurrentLocation() const {
         return currentLocation;
     }
 
-    // Sets the current location of the player.
     void setCurrentLocation(Vertex* location) {
         currentLocation = location;
     }
 
-    // Gets a reference to the player's inventory.
     Inventory& getInventory() {
         return inventory;
     }
+
+    void printComponents() const;
 };

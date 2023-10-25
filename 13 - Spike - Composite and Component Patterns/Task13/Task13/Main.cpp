@@ -1,15 +1,22 @@
 #include "Map_Graph.h"
 #include <iostream>
+#include "GameManager.h"
 
-int main() {
-    // Create the map graph
-    Map_Graph world;
+int main(int argc, char* argv[]) {
+    if (argc < 2) {
+        std::cerr << "Please provide the game world filename as a command-line argument." << std::endl;
+        return 1;
+    }
+    std::string filepath = argv[1];
 
-    // Load map from JSON file
-    world.load_map("C:\\Users\\Luke\\Desktop\\task13_map.json");
+    GameManager manager(filepath);
 
-    // Display the map
-    world.print();
-
+    // game loop
+    while (manager.running()) {
+        manager.current()->render();
+        manager.current()->update();
+        manager.executePops();
+    }
     return 0;
 }
+

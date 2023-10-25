@@ -1,6 +1,5 @@
 {
   "startingLocation": "Bus Depot",
-  
   "locations": [
     {
       "name": "Bus Depot",
@@ -9,7 +8,8 @@
         {
           "type": "simple",
           "name": "Bus Card",
-          "description": "A card used for accessing buses."
+          "description": "A card used for accessing buses.",
+          "actions": [ "pickup", "drop" ]
         }
       ]
     },
@@ -21,11 +21,13 @@
           "type": "composite",
           "name": "Bag",
           "description": "An old, worn-out bag.",
+          "actions": [ "inspect", "pickup", "drop" ],
           "contains": [
             {
               "type": "simple",
               "name": "Knife",
-              "description": "A sharp knife."
+              "description": "A sharp knife.",
+              "actions": [ "pickup", "drop" ]
             }
           ]
         }
@@ -38,7 +40,8 @@
         {
           "type": "simple",
           "name": "Large Knife",
-          "description": "An exceptionally large knife."
+          "description": "An exceptionally large knife.",
+          "actions": [ "pickup", "drop" ]
         }
       ]
     },
@@ -49,7 +52,12 @@
         {
           "type": "simple",
           "name": "Beer",
-          "description": "A chilled bottle of homemade beer."
+          "description": "A chilled bottle of homemade beer.",
+          "actions": [
+            "pickup",
+            "drop",
+            "healAction"
+          ]
         }
       ]
     },
@@ -63,13 +71,18 @@
       "entities": [
         {
           "type": "simple",
-          "name": "A Pack of Punch",
-          "description": "A 6-pack of an unbranded punch drink."
+          "name": "Pack of Punch",
+          "description": "A 6-pack of an unbranded punch drink.",
+          "actions": [
+            "pickup",
+            "drop",
+            "healAction"
+          ]
         }
       ]
     }
   ],
-  
+
   "connections": [
     {
       "from": "Bus Depot",

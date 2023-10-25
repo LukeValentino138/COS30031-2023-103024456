@@ -1,10 +1,17 @@
 #include "Map_Graph.h"
+#include "PickUpAction.h"
+#include "TakeDamageAction.h"
+#include "InspectContentsAction.h"
+#include "HealAction.h"
+#include "DropItemAction.h"
 #include <iostream>
 #include <fstream>
 #include "json.hpp"
-#include "SimpleEntity.h"
-#include "ContainerEntity.h"
 
+void Map_Graph::loadPlayer(Player* player, int initialHealth) {
+    HealthAttribute* healthAttribute = new HealthAttribute(initialHealth);
+    player->addComponent("Health", healthAttribute);
+}
 
 void Map_Graph::add_vertex(const std::string& name, const std::string& description) {
     vmap::iterator itr = vertices.find(name);
@@ -30,7 +37,7 @@ void Map_Graph::print() {
     }
 }
 
-void Map_Graph::load_map(const std::string& filename) {
+void Map_Graph::load_map(const std::string& filename, Player* currentPlayer) {
     std::ifstream file(filename);
     if (!file.is_open()) {
         std::cerr << "Error, cannot open file: " << filename << std::endl;
@@ -42,7 +49,7 @@ void Map_Graph::load_map(const std::string& filename) {
 
     for (const auto& location : jsonObject["locations"]) {
         add_vertex(location["name"], location["description"]);
-        if (location.contains("entities")) {  // Updated from "items" to "entities"
+        if (location.contains("entities")) {
             for (const auto& entityData : location["entities"]) {
                 Entity* entity = nullptr;
                 if (entityData["type"] == "simple") {
@@ -57,6 +64,31 @@ void Map_Graph::load_map(const std::string& filename) {
                         }
                     }
                 }
+
+                // Add actions to the entity
+                if (entityData.contains("actions")) {
+                    for (const auto& action : entityData["actions"]) {
+                        if (action.is_string()) {
+                            if (action == "pickup") {
+                                entity->addComponent("Pick Up", new PickUpAction(currentPlayer, entity, this));
+                            }
+                            else if (action == "drop") {
+                                entity->addComponent("Drop", new DropItemAction(currentPlayer, entity, this));
+                            }
+                            else if (action == "inspect") {
+                                entity->addComponent("Inspect Contents", new InspectContentsAction(dynamic_cast<ContainerEntity*>(entity)));
+                            }
+                            // Other string-based actions can be added here
+                            else if (action == "healAction") {
+                                HealthAttribute* playerHealth = dynamic_cast<HealthAttribute*>(currentPlayer->getComponent("Health"));
+                                if (playerHealth) {
+                                    entity->addComponent("Heal", new HealAction(playerHealth));
+                                }
+                            }
+                        }
+                    }
+                }
+
                 if (entity) {
                     add_entity_to_location(location["name"], entity);
                 }
@@ -68,6 +100,8 @@ void Map_Graph::load_map(const std::string& filename) {
         add_edge(connection["from"], connection["to"], connection["direction"]);
     }
 }
+
+
 
 void Map_Graph::add_entity_to_location(const std::string& location_name, Entity* entity) {
     Vertex* v = vertices[location_name];
@@ -101,9 +135,13 @@ Vertex* Map_Graph::movePlayer(Player* player, const std::string& direction) {
     return nullptr;
 }
 
+Map_Graph::Map_Graph()
+{
+}
+
 Map_Graph::~Map_Graph() {
     for (auto& pair : vertices) {
-        delete pair.second;  // delete the Vertex pointer
+        delete pair.second;
     }
     vertices.clear();
 }
