@@ -10,7 +10,7 @@ int main(int argc, char* argv[]) {
 
     // Initialize SDL_mixer
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
-        SDL_Log("Cannot initialize SDL_mixer, SDL_mixer Error: %s", Mix_GetError());
+        SDL_Log("cannot initialize SDL_mixer, SDL_mixer Error: %s", Mix_GetError());
         return 1;
     }
 
@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
         640, 480,
         SDL_WINDOW_SHOWN);
     if (!window) {
-        SDL_Log("cannot create window : % s", SDL_GetError());
+        SDL_Log("cannot create window: %s", SDL_GetError());
         return 1;
     }
 
@@ -37,7 +37,14 @@ int main(int argc, char* argv[]) {
     Mix_Chunk* sound3 = Mix_LoadWAV("3_shutdown.wav");
 
     if (!sound1 || !sound2 || !sound3) {
-        SDL_Log("Failed to load sound effect! SDL_mixer Error: %s", Mix_GetError());
+        SDL_Log("Could not load sound, SDL_mixer Error: %s", Mix_GetError());
+        return 1;
+    }
+
+    // Load background music
+    Mix_Music* music = Mix_LoadMUS("background.mp3");
+    if (!music) {
+        SDL_Log("could not load background music, SDL_mixer Error: %s", Mix_GetError());
         return 1;
     }
 
@@ -60,6 +67,19 @@ int main(int argc, char* argv[]) {
                 case SDLK_3:
                     Mix_PlayChannel(-1, sound3, 0);
                     break;
+                case SDLK_0:
+                    if (Mix_PlayingMusic() == 0) {
+                        Mix_PlayMusic(music, -1);  // Start the music if not playing
+                    }
+                    else {
+                        if (Mix_PausedMusic() == 1) {
+                            Mix_ResumeMusic();  // Resume if paused
+                        }
+                        else {
+                            Mix_PauseMusic();  // Pause if playing
+                        }
+                    }
+                    break;
                 }
             }
         }
@@ -72,6 +92,7 @@ int main(int argc, char* argv[]) {
     Mix_FreeChunk(sound1);
     Mix_FreeChunk(sound2);
     Mix_FreeChunk(sound3);
+    Mix_FreeMusic(music);
     Mix_CloseAudio();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
