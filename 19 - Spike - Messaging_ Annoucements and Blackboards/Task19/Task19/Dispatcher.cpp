@@ -17,12 +17,15 @@ void Dispatcher::add(const Message& msg) {
 }
 
 void Dispatcher::sendMessage() {
-    for (const Message& msg : pendingMessages) {
+    std::vector<Message> localMessages = pendingMessages; // Copy pending messages to a local list
+    pendingMessages.clear(); // Clear the global list
+
+    for (const Message& msg : localMessages) {
         for (Entity* entity : registeredEntities) {
             if (entity->getID() == msg.destinationID) {
                 entity->takeMessage(msg);
             }
         }
     }
-    pendingMessages.clear();
 }
+
