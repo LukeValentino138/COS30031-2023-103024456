@@ -1,6 +1,5 @@
 #include "Map_Graph.h"
 #include "PickUpAction.h"
-#include "TakeDamageAction.h"
 #include "InspectContentsAction.h"
 #include "HealAction.h"
 #include "DropItemAction.h"

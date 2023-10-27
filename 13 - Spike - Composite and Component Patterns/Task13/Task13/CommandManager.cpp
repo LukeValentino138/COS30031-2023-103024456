@@ -31,8 +31,10 @@ CommandManager::CommandManager(Gameplay* gm) : gp(gm) {
     cmds["grab"] = cmds["pickup"];
 
     cmds["putdown"] = new CommandPutDown(player, world);
+    cmds["drop"] = cmds["putdown"];
 
     cmds["lookin"] = new CommandLookIn(player);
+    cmds["inspect"] = cmds["lookin"];
 
     cmds["use"] = new CommandUse(player, world);
 

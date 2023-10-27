@@ -32,7 +32,7 @@ Gameplay::Gameplay(GameManager* manager, const std::string& filepath)
 
     world.load_map(filepath, getPlayer()); 
 
-    world.print();
+    //world.print();
 
     Vertex* initialLocation = this->world.vertices["Bus Depot"];
     player.setCurrentLocation(initialLocation);

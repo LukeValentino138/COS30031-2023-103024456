@@ -46,14 +46,13 @@ void Vertex::print() {
     std::cout << "\n    At Location:" << std::endl;
     for (const auto& entity : entities) {
         std::cout << "    - " << entity->getName() << ": ";
-        entity->printComponents();
 
         ContainerEntity* compositeEntity = dynamic_cast<ContainerEntity*>(entity);
         if (compositeEntity) {
             std::cout << std::endl;
             for (const auto& childEntity : compositeEntity->getChildren()) {
                 std::cout << "        - " << childEntity->getName() << ": " << childEntity->getDescription() << std::endl;
-                childEntity->printComponents(); 
+                
             }
         }
         else {

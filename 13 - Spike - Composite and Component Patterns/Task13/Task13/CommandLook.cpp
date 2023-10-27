@@ -29,7 +29,7 @@ void CommandLook::execute() {
         if (location && location->hasEntity(arguments)) {
             Entity* entity = location->getEntityByName(arguments);
             if (entity) {
-                std::cout << "You see a(n) " << entity->getName() << std::endl;
+                std::cout << "You see a(n) " << entity->getDescription() << std::endl;
             }
         }
         else {
