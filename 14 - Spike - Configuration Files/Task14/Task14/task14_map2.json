@@ -1,0 +1,151 @@
+{
+  "startingLocation": "Diner",
+  "locations": [
+    {
+      "name": "Bus Depot",
+      "description": "An abandoned bus depot",
+      "entities": []
+    },
+    {
+      "name": "Diner",
+      "description": "An overrun diner situated next to a garage",
+      "entities": [
+        {
+          "type": "composite",
+          "name": "2nd Config Bag",
+          "description": "An old, worn-out bag.",
+          "actions": [ "inspect", "pickup", "drop" ],
+          "contains": [
+            {
+              "type": "simple",
+              "name": "2nd Config Knife",
+              "description": "A sharp knife.",
+              "actions": [ "pickup", "drop" ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Abandoned Cabin",
+      "description": "An abandoned cabin with a secret",
+      "entities": [
+        {
+          "type": "simple",
+          "name": "Large Knife",
+          "description": "An exceptionally large knife.",
+          "actions": [ "pickup", "drop" ]
+        }
+      ]
+    },
+    {
+      "name": "Farm",
+      "description": "An old homestead",
+      "entities": [
+        {
+          "type": "simple",
+          "name": "2nd Config Beer",
+          "description": "A chilled bottle of homemade beer.",
+          "actions": [
+            "pickup",
+            "drop",
+            "healAction"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Power Station",
+      "description": "The source"
+    },
+    {
+      "name": "Town",
+      "description": "A once vibrant town, now forgotten.",
+      "entities": [
+        {
+          "type": "simple",
+          "name": "2nd Config Pack of Punch",
+          "description": "A 6-pack of an unbranded punch drink.",
+          "actions": [
+            "pickup",
+            "drop",
+            "healAction"
+          ]
+        }
+      ]
+    }
+  ],
+
+  "connections": [
+    {
+      "from": "Bus Depot",
+      "to": "Diner",
+      "direction": "N"
+    },
+    {
+      "from": "Bus Depot",
+      "to": "Town",
+      "direction": "W"
+    },
+    {
+      "from": "Diner",
+      "to": "Town",
+      "direction": "SW"
+    },
+    {
+      "from": "Diner",
+      "to": "Farm",
+      "direction": "W"
+    },
+    {
+      "from": "Diner",
+      "to": "Bus Depot",
+      "direction": "S"
+    },
+    {
+      "from": "Farm",
+      "to": "Diner",
+      "direction": "E"
+    },
+    {
+      "from": "Farm",
+      "to": "Abandoned Cabin",
+      "direction": "S"
+    },
+    {
+      "from": "Abandoned Cabin",
+      "to": "Power Station",
+      "direction": "S"
+    },
+    {
+      "from": "Abandoned Cabin",
+      "to": "Farm",
+      "direction": "N"
+    },
+    {
+      "from": "Power Station",
+      "to": "Abandoned Cabin",
+      "direction": "N"
+    },
+    {
+      "from": "Power Station",
+      "to": "Town",
+      "direction": "NE"
+    },
+    {
+      "from": "Town",
+      "to": "Power Station",
+      "direction": "SW"
+    },
+    {
+      "from": "Town",
+      "to": "Bus Depot",
+      "direction": "E"
+    },
+    {
+      "from": "Town",
+      "to": "Diner",
+      "direction": "NE"
+    }
+  ]
+}
